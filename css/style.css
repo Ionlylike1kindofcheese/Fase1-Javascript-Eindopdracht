@@ -1,0 +1,133 @@
+/* General settings */
+
+main {
+  max-width: 1000px;
+  margin: auto;
+  border: 2px solid;
+  padding: 10px;
+  font-family: sans-serif;
+}
+
+ol {
+  list-style: none;
+  padding: 0.5em;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+}
+
+h1 {
+  height: 23px;
+  font-weight: bold;
+}
+
+section {
+  padding-left: 1em;
+}
+
+ul li {
+  border: 2px solid;
+  margin: 0.5em;
+}
+
+img {
+  width: 200px; 
+  height: 180px;
+  border: 2px solid;
+  margin: 0.25em;
+  margin-left: 0.5em;
+}
+
+/* IDS */
+
+#selection-bar {
+  border: 2px solid;
+  margin-bottom: 35px;
+  height: 85px;
+}
+
+#selection-bar ul {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  margin: 0.5em;
+}
+
+#selection-bar li {
+  padding: 1em;
+}
+
+#information {
+  position: relative;
+  height: 300px;
+  border: 2px solid;
+}
+
+#requirements ol {
+  font-family: serif;
+}
+
+#requirements li, #reviews li {
+  padding-bottom: 1em;
+}
+
+#screenshots, #requirements, #reviews {
+  border: 2px solid;
+  border-top: 0px solid;
+  padding: 0.5em;
+}
+
+#screenshots section, #requirements section, #reviews section {
+  padding-left: 0.5em;
+}
+
+/* Classes */
+
+.left-side {
+  float: left;
+}
+
+.right-side {
+  float: right;
+}
+
+.description-field {
+  float: left;
+  display: block;
+  height: 300px;
+  width: 70%;
+}
+
+.tags {
+  position: absolute;
+  bottom: 0;
+  width: 70%;
+}
+
+.tags ul {
+  padding-left: 0em;
+  margin: 0em;
+}
+
+.tags li {
+  padding: 0.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.information-field {
+  float: right;
+  display: block;
+  height: 300px;
+  width: 29%;
+  border-left: 2px solid;
+}
+
+.information-field li {
+  padding-bottom: 0.75em;
+}
+
+.bold-info {
+  font-weight: bold;
+}
