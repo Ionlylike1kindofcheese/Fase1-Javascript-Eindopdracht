@@ -1,0 +1,56 @@
+/* general */
+
+body {
+  max-width: 1000px;
+  margin: auto;
+  font-family: sans-serif;
+}
+
+
+/* ids */
+
+#dropdown-divs-field {
+  display: inline-block;
+}
+
+#games-div-field {
+  border: 2px solid black;
+  padding: 50px;
+}
+
+#game-button-field {
+  height: 30px;
+}
+
+#submit-button {
+  float: right;
+  padding: 0.5em;
+  background-color: white;
+  border-radius: 4px;
+  font-size: 24px;
+}
+
+
+/* classes */
+
+.checkbox-buttons {
+  border-radius: 50%;
+  padding: 1em;
+  font-size: 20px;
+}
+
+.price-tags {
+  border: 2px solid black;
+  float: right;
+  width: 85%;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.game-name {
+  float: left;
+}
+
+.game-price {
+  float: right;
+}
