@@ -6,6 +6,10 @@ body {
   font-family: sans-serif;
 }
 
+select {
+  text-align: center;
+}
+
 
 /* ids */
 
@@ -32,6 +36,10 @@ body {
 
 
 /* classes */
+
+/* .filter-dropdowns {
+  margin: auto;
+} */
 
 .checkbox-buttons {
   border-radius: 50%;
