@@ -22,9 +22,9 @@ document.getElementById('game-button-field').appendChild(submitButton);
 function selectBoxGenerator(assignmentField, selectType) {
   assignmentField.appendChild(Object.assign(document.createElement('label'), {for: `${selectType}-select`, innerText: `Filter ${selectType}`}))
   const genDropdown = Object.assign(document.createElement('select'), {id: `${selectType}-select`});
-  genDropdown.appendChild(Object.assign(document.createElement('option'), {innerText: '-', className: 'no-filter', value: 0}));
+  genDropdown.appendChild(Object.assign(document.createElement('option'), {innerText: '-', value: 'no-filter'}));
   assignmentField.appendChild(genDropdown);
-  // still needs eventlistener for filtering
+  genDropdown.addEventListener('change', gameFiltering);
 }
 
 
@@ -40,6 +40,25 @@ function selectBoxFiller(incomingArray, selectBox) {
       let curValue = incomingArray[curKey];
       selectBox.appendChild(Object.assign(document.createElement('option'), {innerText: curKey, value: curValue}));
     }    
+  }
+}
+
+
+function gameFiltering() {
+  const selectedFilters = getSelectedDropdowns();
+  console.log(selectedFilters);
+  let gameField = document.getElementById('game-checkbox-field');
+  let gameCollection = gameField.children;
+  for (let index = 0; index < gameCollection.length; index++) {
+    let conditionResults = filterCompiling(gameCollection[index], selectedFilters);
+    console.log(conditionResults);
+    if (conditionResults.includes('none')) {
+      console.log('none');
+      gameCollection[index].style.display = 'none';
+    } else {
+      console.log('block');
+      gameCollection[index].style.display = 'block';
+    }
   }
 }
 
@@ -98,4 +117,46 @@ function idCondition(incomingID) {
 
 function assignPriceTag(incomingPrice) {
   if (incomingPrice == 0) {return 'FREE'} else {return incomingPrice};
+}
+
+
+function getSelectedDropdowns() {
+  let valueCollection = {};
+  typeArray.forEach(element => {
+    let curElement = document.getElementById(`${element}-select`);
+    const optionValue = curElement.options[curElement.selectedIndex].value;
+    valueCollection[element] = optionValue;
+  });
+  return valueCollection;
+}
+
+
+function filterCompiling(curField, selectedFilters) {
+  let conditionCompile = [];
+  Object.keys(selectedFilters).forEach(condition => {
+    if (selectedFilters[condition] != 'no-filter') {
+      if (condition == 'genre') {
+        if (curField.dataset.genre == selectedFilters[condition]) {
+          conditionCompile.push('block');
+        } else {
+          conditionCompile.push('none');
+        }
+      } else if (condition == 'price') {
+        if (Number(curField.dataset.price) <= selectedFilters[condition]) {
+          conditionCompile.push('block');
+        } else {
+          conditionCompile.push('none');
+        }
+      } else if (condition == 'rating') {
+        if (Number(curField.dataset.rating) <= selectedFilters[condition]) {
+          conditionCompile.push('block');
+        } else {
+          conditionCompile.push('none');
+        }
+      }
+    } else {
+      conditionCompile.push('block');
+    }
+  }); 
+  return conditionCompile;
 }
