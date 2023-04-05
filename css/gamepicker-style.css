@@ -20,21 +20,27 @@ select {
   padding-bottom: 1em;
 }
 
-#games-div-field {
+#games-div-field, #cart-div-field {
   border: 2px solid black;
   padding: 50px;
 }
 
-#game-button-field {
+#game-button-field, #cart-price-field {
   height: 30px;
 }
 
-#submit-button {
+#submit-button, #cart-price {
   float: right;
   padding: 0.5em;
   background-color: white;
   border-radius: 4px;
+  border: 2px solid black;
   font-size: 24px;
+  margin: 0px;
+}
+
+#winkelmandje {
+  display: none;
 }
 
 

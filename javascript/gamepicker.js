@@ -16,6 +16,13 @@ document.getElementById('games-div-field').appendChild(Object.assign(document.cr
 const submitButton = Object.assign(document.createElement('button'), {id: 'submit-button', innerText: 'Bereken'})
 submitButton.addEventListener('click', submitForm);
 document.getElementById('game-button-field').appendChild(submitButton);
+
+const shoppingCartDiv = document.getElementById('winkelmandje');
+shoppingCartDiv.appendChild(Object.assign(document.createElement('h2'), {innerText: 'Winkelmandje'}));
+shoppingCartDiv.appendChild(Object.assign(document.createElement('div'), {id: 'cart-div-field'}));
+document.getElementById('cart-div-field').appendChild(Object.assign(document.createElement('div'), {id: 'cart-games-field'}));
+document.getElementById('cart-div-field').appendChild(Object.assign(document.createElement('div'), {id: 'cart-price-field'}));
+document.getElementById('cart-price-field').appendChild(Object.assign(document.createElement('p'), {id: 'cart-price', innerText: 'STATIC'}));
 // Setup end
 
 
@@ -76,15 +83,7 @@ function showGamesList(gameDiv) {
         document.getElementById(`${idCondition(objectData[0])}-FIELD`).setAttribute('data-price', `${objectData[1]}`);
         document.getElementById(`${idCondition(objectData[0])}-FIELD`).setAttribute('data-rating', `${objectData[3]}`);
         let objectButton = Object.assign(document.createElement('button'), {innerText: 'O', id: `${idCondition(objectData[0])}-BUTTON`, className: 'checkbox-buttons', style: 'background-color: red; color: red;'});
-        objectButton.addEventListener('click', function(button) {
-          if (button.style.backgroundColor == 'red') {
-            button.style.backgroundColor = 'green';
-            button.style.color = 'green';
-          } else if (button.style.backgroundColor == 'green') {
-            button.style.backgroundColor = 'red';
-            button.style.color = 'red';
-          }
-        }.bind(undefined, objectButton));
+        objectButton.addEventListener('click', buttonColourSwap.bind(undefined, objectButton));
         document.getElementById(`${idCondition(objectData[0])}-FIELD`).appendChild(objectButton);
         document.getElementById(`${idCondition(objectData[0])}-FIELD`).appendChild(Object.assign(document.createElement('div'), {id: `${idCondition(objectData[0])}-TAG`, className: 'price-tags'}));
         document.getElementById(`${idCondition(objectData[0])}-TAG`).appendChild(Object.assign(document.createElement('p'), {innerText: `${objectData[0]}`, className: 'game-name'}));
@@ -102,11 +101,32 @@ function showGamesList(gameDiv) {
 
 function submitForm() {
   const gameFields = document.querySelectorAll('.game-fields');
+  let selectedGames = [];
   for (let index = 0; index < gameFields.length; index++) {
-    if (gameFields[index].style.display == 'block') {
-      // create array with selected games and continue to shopping cart
+    const curButton = document.getElementById(`${idCondition(gameFields[index].dataset.name)}-BUTTON`);
+    if (curButton.style.color == 'green') {
+      selectedGames[gameFields[index].dataset.name] = gameFields[index].dataset.price;
     }
   }
+  document.getElementById('totaaloverzicht').style.display = 'none';
+  document.getElementById('winkelmandje').style.display = 'block';
+  Object.keys(selectedGames).forEach(curGame => {
+    document.getElementById('cart-games-field').appendChild(Object.assign(document.createElement('div'), {id: `${idCondition(curGame)}-CART-FIELD`, className: 'cart-games'}));
+    document.getElementById(`${idCondition(curGame)}-CART-FIELD`).setAttribute('data-name', `${curGame}`);
+    document.getElementById(`${idCondition(curGame)}-CART-FIELD`).setAttribute('data-price', `${selectedGames[curGame]}`);
+    let gameButton = Object.assign(document.createElement('button'), {innerText: 'O', id: `${idCondition(curGame)}-CART-BUTTON`, className: 'checkbox-buttons', style: 'background-color: green; color: green;'});
+    gameButton.addEventListener('click', buttonColourSwap.bind(undefined, gameButton));
+    document.getElementById(`${idCondition(curGame)}-CART-FIELD`).appendChild(gameButton);
+    document.getElementById(`${idCondition(curGame)}-CART-FIELD`).appendChild(Object.assign(document.createElement('div'), {id: `${idCondition(curGame)}-CART-TAG`, className: 'price-tags'}));
+    document.getElementById(`${idCondition(curGame)}-CART-TAG`).appendChild(Object.assign(document.createElement('p'), {innerText: `${curGame}`, className: 'game-name'}));
+    let gamePrice = document.getElementById(`${idCondition(curGame)}-CART-FIELD`).dataset.price;
+    document.getElementById(`${idCondition(curGame)}-CART-TAG`).appendChild(Object.assign(document.createElement('p'), {innerText: `${assignPriceTag(gamePrice)}`, className: 'game-price'}));
+  });
+}
+
+
+function livePriceListener() {
+  console.log('IGNORE');
 }
 
 
@@ -160,3 +180,14 @@ function filterCompiling(curField, selectedFilters) {
   }); 
   return conditionCompile;
 }
+
+
+function buttonColourSwap(button) {
+  if (button.style.backgroundColor == 'red') {
+    button.style.backgroundColor = 'green';
+    button.style.color = 'green';
+  } else if (button.style.backgroundColor == 'green') {
+    button.style.backgroundColor = 'red';
+    button.style.color = 'red';
+  }
+} 
