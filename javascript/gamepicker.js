@@ -20,7 +20,7 @@ document.getElementById('game-button-field').appendChild(submitButton);
 
 
 function selectBoxGenerator(assignmentField, selectType) {
-  assignmentField.appendChild(Object.assign(document.createElement('label'), {for: `${selectType}-select`, innerText: `Filter ${selectType}`}))
+  assignmentField.appendChild(Object.assign(document.createElement('label'), {for: `${selectType}-select`, innerText: `Filter ${selectType}: `}))
   const genDropdown = Object.assign(document.createElement('select'), {id: `${selectType}-select`});
   genDropdown.appendChild(Object.assign(document.createElement('option'), {innerText: '-', value: 'no-filter'}));
   assignmentField.appendChild(genDropdown);

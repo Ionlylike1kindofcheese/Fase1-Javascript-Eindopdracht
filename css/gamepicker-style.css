@@ -15,6 +15,9 @@ select {
 
 #dropdown-divs-field {
   display: inline-block;
+  width: 100%;
+  text-align: center;
+  padding-bottom: 1em;
 }
 
 #games-div-field {
