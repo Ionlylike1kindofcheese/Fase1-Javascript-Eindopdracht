@@ -87,7 +87,7 @@ function showGamesList(gameDiv) {
         document.getElementById(`${idCondition(objectData[0])}-FIELD`).appendChild(objectButton);
         document.getElementById(`${idCondition(objectData[0])}-FIELD`).appendChild(Object.assign(document.createElement('div'), {id: `${idCondition(objectData[0])}-TAG`, className: 'price-tags'}));
         document.getElementById(`${idCondition(objectData[0])}-TAG`).appendChild(Object.assign(document.createElement('p'), {innerText: `${objectData[0]}`, className: 'game-name'}));
-        document.getElementById(`${idCondition(objectData[0])}-TAG`).appendChild(Object.assign(document.createElement('p'), {innerText: `${assignPriceTag(objectData[1])}`, className: 'game-price'}));
+        document.getElementById(`${idCondition(objectData[0])}-TAG`).appendChild(Object.assign(document.createElement('p'), {innerText: `${freeTagCondition(objectData[1])}`, className: 'game-price'}));
         if (!(genreArray.includes(objectData[2]))) {
           genreArray.push(objectData[2]);
         }
@@ -120,7 +120,7 @@ function submitForm() {
     document.getElementById(`${idCondition(curGame)}-CART-FIELD`).appendChild(Object.assign(document.createElement('div'), {id: `${idCondition(curGame)}-CART-TAG`, className: 'price-tags'}));
     document.getElementById(`${idCondition(curGame)}-CART-TAG`).appendChild(Object.assign(document.createElement('p'), {innerText: `${curGame}`, className: 'game-name'}));
     let gamePrice = document.getElementById(`${idCondition(curGame)}-CART-FIELD`).dataset.price;
-    document.getElementById(`${idCondition(curGame)}-CART-TAG`).appendChild(Object.assign(document.createElement('p'), {innerText: `${assignPriceTag(gamePrice)}`, className: 'game-price'}));
+    document.getElementById(`${idCondition(curGame)}-CART-TAG`).appendChild(Object.assign(document.createElement('p'), {innerText: `${freeTagCondition(gamePrice)}`, className: 'game-price'}));
   });
 }
 
@@ -135,7 +135,7 @@ function idCondition(incomingID) {
 }
 
 
-function assignPriceTag(incomingPrice) {
+function freeTagCondition(incomingPrice) {
   if (incomingPrice == 0) {return 'FREE'} else {return incomingPrice};
 }
 
