@@ -83,7 +83,7 @@ function showGamesList(gameDiv) {
         document.getElementById(`${idCondition(objectData[0])}-FIELD`).setAttribute('data-price', `${objectData[1]}`);
         document.getElementById(`${idCondition(objectData[0])}-FIELD`).setAttribute('data-rating', `${objectData[3]}`);
         let objectButton = Object.assign(document.createElement('button'), {innerText: 'O', id: `${idCondition(objectData[0])}-BUTTON`, className: 'checkbox-buttons', style: 'background-color: red; color: red;'});
-        objectButton.addEventListener('click', buttonColourSwap.bind(undefined, objectButton));
+        objectButton.addEventListener('click', buttonColourSwap.bind(undefined, [objectButton, 0]));
         document.getElementById(`${idCondition(objectData[0])}-FIELD`).appendChild(objectButton);
         document.getElementById(`${idCondition(objectData[0])}-FIELD`).appendChild(Object.assign(document.createElement('div'), {id: `${idCondition(objectData[0])}-TAG`, className: 'price-tags'}));
         document.getElementById(`${idCondition(objectData[0])}-TAG`).appendChild(Object.assign(document.createElement('p'), {innerText: `${objectData[0]}`, className: 'game-name'}));
@@ -115,18 +115,46 @@ function submitForm() {
     document.getElementById(`${idCondition(curGame)}-CART-FIELD`).setAttribute('data-name', `${curGame}`);
     document.getElementById(`${idCondition(curGame)}-CART-FIELD`).setAttribute('data-price', `${selectedGames[curGame]}`);
     let gameButton = Object.assign(document.createElement('button'), {innerText: 'O', id: `${idCondition(curGame)}-CART-BUTTON`, className: 'checkbox-buttons', style: 'background-color: green; color: green;'});
-    gameButton.addEventListener('click', buttonColourSwap.bind(undefined, gameButton));
+    gameButton.addEventListener('click', buttonColourSwap.bind(undefined, [gameButton, 1]));
     document.getElementById(`${idCondition(curGame)}-CART-FIELD`).appendChild(gameButton);
     document.getElementById(`${idCondition(curGame)}-CART-FIELD`).appendChild(Object.assign(document.createElement('div'), {id: `${idCondition(curGame)}-CART-TAG`, className: 'price-tags'}));
     document.getElementById(`${idCondition(curGame)}-CART-TAG`).appendChild(Object.assign(document.createElement('p'), {innerText: `${curGame}`, className: 'game-name'}));
     let gamePrice = document.getElementById(`${idCondition(curGame)}-CART-FIELD`).dataset.price;
     document.getElementById(`${idCondition(curGame)}-CART-TAG`).appendChild(Object.assign(document.createElement('p'), {innerText: `${freeTagCondition(gamePrice)}`, className: 'game-price'}));
   });
+  livePriceListener(1);
 }
 
 
-function livePriceListener() {
-  console.log('IGNORE');
+function livePriceListener(button) {
+  console.log(button)
+  let fullPrice = 0;
+  if (button == 1) {
+    const cartGames = document.querySelectorAll('.cart-games');
+    let priceNumbers = [];
+    cartGames.forEach(game => {
+      priceNumbers.push(Number(game.dataset.price));
+    })
+    fullPrice = priceNumbers.reduce((partialSum, a) => partialSum + a, 0);
+    document.getElementById('cart-price').setAttribute('data-full', fullPrice);
+  } else {
+    let fieldID = (button.id).replace('-BUTTON', '-FIELD');
+    const priceChange = Number(document.getElementById(fieldID).dataset.price);
+    let price = Number(document.getElementById('cart-price').dataset.full);
+    if (button.style.backgroundColor == 'red') {
+      fullPrice = (price - priceChange);
+    } else if (button.style.backgroundColor == 'green') {
+      fullPrice = (price + priceChange);
+    }
+  }
+  let roundPrice = Math.ceil(fullPrice);
+  if (roundPrice != 0) {
+    roundPrice = roundPrice - 0.01;
+    document.getElementById('cart-price').innerText = roundPrice;
+  } else {
+    document.getElementById('cart-price').innerText = 'FREE';
+  }
+  document.getElementById('cart-price').dataset.full = roundPrice;
 }
 
 
@@ -182,12 +210,16 @@ function filterCompiling(curField, selectedFilters) {
 }
 
 
-function buttonColourSwap(button) {
-  if (button.style.backgroundColor == 'red') {
-    button.style.backgroundColor = 'green';
-    button.style.color = 'green';
-  } else if (button.style.backgroundColor == 'green') {
-    button.style.backgroundColor = 'red';
-    button.style.color = 'red';
+function buttonColourSwap(incomingARGS) {
+  if (incomingARGS[0].style.backgroundColor == 'red') {
+    incomingARGS[0].style.backgroundColor = 'green';
+    incomingARGS[0].style.color = 'green';
+  } else if (incomingARGS[0].style.backgroundColor == 'green') {
+    incomingARGS[0].style.backgroundColor = 'red';
+    incomingARGS[0].style.color = 'red';
   }
-} 
+
+  if (incomingARGS[1]) {
+    livePriceListener(incomingARGS[0]);
+  }
+}
