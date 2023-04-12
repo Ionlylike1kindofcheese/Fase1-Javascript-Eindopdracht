@@ -53,17 +53,13 @@ function selectBoxFiller(incomingArray, selectBox) {
 
 function gameFiltering() {
   const selectedFilters = getSelectedDropdowns();
-  console.log(selectedFilters);
   let gameField = document.getElementById('game-checkbox-field');
   let gameCollection = gameField.children;
   for (let index = 0; index < gameCollection.length; index++) {
     let conditionResults = filterCompiling(gameCollection[index], selectedFilters);
-    console.log(conditionResults);
     if (conditionResults.includes('none')) {
-      console.log('none');
       gameCollection[index].style.display = 'none';
     } else {
-      console.log('block');
       gameCollection[index].style.display = 'block';
     }
   }
@@ -127,7 +123,6 @@ function submitForm() {
 
 
 function livePriceListener(button) {
-  console.log(button)
   let fullPrice = 0;
   if (button == 1) {
     const cartGames = document.querySelectorAll('.cart-games');
