@@ -1,6 +1,7 @@
 /* General settings */
 
-main {
+/* body should be centered. not main since header/footer tags exists */
+body {
   max-width: 1000px;
   margin: auto;
   border: 2px solid;
@@ -40,28 +41,42 @@ img {
   margin-left: 0.5em;
 }
 
-/* IDS */
-
-#selection-bar {
+nav {
   border: 2px solid;
   margin-bottom: 35px;
   height: 85px;
 }
 
-#selection-bar ul {
+nav ul {
   padding-left: 0.5em;
   padding-right: 0.5em;
   margin: 0.5em;
 }
 
-#selection-bar li {
+nav li {
   padding: 1em;
+}
+
+blockquote {
+  margin: 0px;
 }
 
 #information {
   position: relative;
   height: 300px;
   border: 2px solid;
+}
+
+.information-field {
+  float: right;
+  display: block;
+  height: 300px;
+  width: 29%;
+  border-left: 2px solid;
+}
+
+.information-field li {
+  padding-bottom: 0.75em;
 }
 
 #requirements ol {
@@ -76,13 +91,12 @@ img {
   border: 2px solid;
   border-top: 0px solid;
   padding: 0.5em;
+  margin: 0px;
 }
 
 #screenshots section, #requirements section, #reviews section {
   padding-left: 0.5em;
 }
-
-/* Classes */
 
 .left-side {
   float: left;
@@ -114,18 +128,6 @@ img {
   padding: 0.5em;
   padding-left: 1em;
   padding-right: 1em;
-}
-
-.information-field {
-  float: right;
-  display: block;
-  height: 300px;
-  width: 29%;
-  border-left: 2px solid;
-}
-
-.information-field li {
-  padding-bottom: 0.75em;
 }
 
 .bold-info {
